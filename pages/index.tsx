@@ -1,5 +1,11 @@
+import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
 import Image from 'next/image';
+
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+)
 
 function combineListOfClassname(...classes: string[]) {
   return classes.filter(Boolean).join(' ')

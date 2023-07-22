@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-function cn(...classes: string[]) {
+function combineListOfClassname(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
@@ -30,7 +30,7 @@ function BlurImage() {
           layout="fill"
           objectFit="cover"
           onLoadingComplete={() => setIsLoading(false)}
-          className={cn(
+          className={combineListOfClassname(
             'group-hover:opacity-75 duration-700 ease-in-out',
             isLoading
               ? 'grayscale blur-2xl scale-110'

@@ -16,9 +16,8 @@ export async function getStaticProps() {
     .from('imagesTable')
     .select('*')
     .order('id')
-  // ——————————————————————————————————————————————————— getStaticProps return data
-  // ——————————————————————————————————————————————————— Inside of the 'images' props
-  // ——————————————————————————————————————————————————— To the default export function of our file
+  // ——————————————————————————————————————————————————— Return data inside of the 'images' props
+  // ——————————————————————————————————————————————————— To the default exported component of our file
   return {
     props: {
       images: data

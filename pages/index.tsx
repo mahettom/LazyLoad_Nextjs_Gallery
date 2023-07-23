@@ -38,6 +38,7 @@ type Image = {
 
 
 // ——————————————————————————————————————————————————— Obtain data from images (getStaticProp's props)
+
 export default function Gallery({ images }: { images: Image[] }) {
 
   return (
@@ -53,6 +54,8 @@ export default function Gallery({ images }: { images: Image[] }) {
   );
 }
 
+// ——————————————————————————————————————————————————— Obtain image from props provide in Gallery
+
 function BlurImage({ image }: { image: Image }) {
 
   const [isLoading, setIsLoading] = useState(true)
@@ -63,8 +66,8 @@ function BlurImage({ image }: { image: Image }) {
       <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
 
         <Image
-          alt=""
-          src="https://bit.ly/placeholder-img"
+          alt={`placeholder image n°${image.id} for testing Next LazyLoad`}
+          src={image.imgSrc}
           layout="fill"
           objectFit="cover"
           onLoadingComplete={() => setIsLoading(false)}

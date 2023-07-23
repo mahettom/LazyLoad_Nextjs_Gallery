@@ -2,27 +2,49 @@ import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
 import Image from 'next/image';
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
-)
+export async function getStaticProps() {
+  const supabaseAdmin = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+  )
+
+  const { data } = await supabaseAdmin
+    .from('imagesTable')
+    .select('*')
+    .order('id')
+
+  return {
+    props: {
+      imagesTable: data
+    }
+  }
+}
 
 function combineListOfClassname(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Gallery() {
+type Image = {
+  id: number
+  username: string
+  href: string
+  imgSrc: string
+}
+
+export default function Gallery({ images }: { images: Image[] }) {
   return (
     <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
       <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        <BlurImage />
+        {images.map((image) => (
+          <BlurImage key={image.id} image={image} />
+        ))}
 
       </div>
     </div>
   );
 }
 
-function BlurImage() {
+function BlurImage({ image }: { image: Image }) {
 
   const [isLoading, setIsLoading] = useState(true)
 

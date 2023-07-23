@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 
+// ————————————————————————————————————————————————————— Fetch data on the server side
 export async function getStaticProps() {
   // ——————————————————————————————————————————————————— Create connection to supabase
   const supabaseAdmin = createClient(
@@ -17,6 +18,7 @@ export async function getStaticProps() {
     .order('id')
   // ——————————————————————————————————————————————————— getStaticProps return data
   // ——————————————————————————————————————————————————— Inside of the 'images' props
+  // ——————————————————————————————————————————————————— To the default export function of our file
   return {
     props: {
       images: data
@@ -37,9 +39,9 @@ type Image = {
 }
 
 
-// ——————————————————————————————————————————————————— Obtain data from images (getStaticProp's props)
 
 export default function Gallery({ images }: { images: Image[] }) {
+  // ——————————————————————————————————————————————————— Obtain data from images provide in getStaticProp
 
   return (
     <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -54,9 +56,9 @@ export default function Gallery({ images }: { images: Image[] }) {
   );
 }
 
-// ——————————————————————————————————————————————————— Obtain image from props provide in Gallery
 
 function BlurImage({ image }: { image: Image }) {
+  // ——————————————————————————————————————————————————— Obtain image from props provide in Gallery
 
   const [isLoading, setIsLoading] = useState(true)
 
